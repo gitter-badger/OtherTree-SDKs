@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Google.Protobuf;
-using System.Runtime;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
 using Microsoft.AspNet.SignalR.Client.Transports;
 using Wimt.OtherTree.References;
-using Version = Wimt.OtherTree.Version;
 
-namespace OtherTreeClientSDK
+namespace Wimt.OtherTree.Client
 {
     // This project can output the Class library as a NuGet Package.
     // To enable this option, right-click on the project and select the Properties menu item. In the Build tab select "Produce outputs on build".
@@ -48,7 +45,7 @@ namespace OtherTreeClientSDK
         private string _url;
         private bool _connected = false;
         private string _token;
-        private IList<KeyValuePair<TypeDescription, Delegate>> _handlers;
+        private IList<KeyValuePair<TypeDescription, Delegate>> _listeners;
         private HubConnection _hubConnection;
         private IHubProxy _bedrockProxy;
         public OtherTreeClient(string url, string token,bool useDefaultUrl=true)
@@ -57,7 +54,7 @@ namespace OtherTreeClientSDK
             _token = token;
             var qs = new Dictionary<string, string>();
             qs.Add("username", token);
-            _handlers=new List<KeyValuePair<TypeDescription, Delegate>>();            
+            _listeners=new List<KeyValuePair<TypeDescription, Delegate>>();            
             _hubConnection = new HubConnection(_url,token,useDefaultUrl);
 
             //  TODO Add proper auth        
@@ -79,7 +76,7 @@ namespace OtherTreeClientSDK
 
             _bedrockProxy.On("Thud", (string typeName, Wimt.OtherTree.Version? version, byte[] payload) =>
             {
-                foreach (var handler in _handlers)
+                foreach (var handler in _listeners)
                 {
                     if (typeName == handler.Key.TypeName &&
                         (!version.HasValue || handler.Key.Version.IsCompatableWith(version.Value)))
@@ -94,27 +91,27 @@ namespace OtherTreeClientSDK
             _connected = true;
         }
 
-        public void AddThudHandler<T>(OnThud<T> handler, Version? version = null)
+        public void AddThudListener<T>(OnThud<T> listener, Version? version = null)
             where T : IMessage<T>,new()
         {
             if (version.HasValue)
             {
-                _handlers.Add(new KeyValuePair<TypeDescription, Delegate>(new TypeDescription<T>(version),handler));
+                _listeners.Add(new KeyValuePair<TypeDescription, Delegate>(new TypeDescription<T>(version),listener));
             }
             else
             {
-                _handlers.Add(new KeyValuePair<TypeDescription, Delegate>(new TypeDescription<T>(), handler));
+                _listeners.Add(new KeyValuePair<TypeDescription, Delegate>(new TypeDescription<T>(), listener));
             }            
         }
 
-        public void RemoveThudHandler<T>(OnThud<T> handler)
+        public void RemoveThudListener<T>(OnThud<T> listener)
             where T : IMessage<T>, new()
         {
-            for (int i = _handlers.Count-1; i >=0; --i)
+            for (int i = _listeners.Count-1; i >=0; --i)
             {
-                if (_handlers[i].Value.GetInvocationList().Contains(handler))
+                if (_listeners[i].Value.GetInvocationList().Contains(listener))
                 {
-                    _handlers.RemoveAt(i);
+                    _listeners.RemoveAt(i);
                 }
             }
         }

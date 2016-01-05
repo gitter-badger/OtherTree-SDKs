@@ -1,2 +1,1 @@
 include 'android', 'client', ':signalr-client-sdk-android'
-

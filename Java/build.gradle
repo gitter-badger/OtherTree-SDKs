@@ -34,7 +34,7 @@ project (":client"){
 }
 
 project(":android") {
-    apply plugin: "android"
+    apply plugin: 'com.android.library'
 
     configurations { natives }
     dependencies {
