@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Sprig</Name>
+    <Description>Sprig</Description>
+    <Icon>Sprig.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>00a88910-f51b-42ca-a7f1-1276b22246b8</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Sprig</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+      <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <Folder Name="proto" TargetFolderName="proto">        
+          <ProjectItem ReplaceParameters="true" TargetFileName="SampleSap.proto">SampleSap.proto</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="SampleOutputSap.proto">SampleOutputSap.proto</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="SampleCharge.proto">SampleCharge.proto</ProjectItem>
+      </Folder>
+      <Folder Name="docs" TargetFolderName="docs">
+        <ProjectItem ReplaceParameters="true" TargetFileName="index.md">index.md</ProjectItem>
+      </Folder>
+        <Folder Name="tools" TargetFolderName="tools">
+          <Folder Name="7zip" TargetFolderName="7zip">
+            <ProjectItem ReplaceParameters="false" TargetFileName="7za.exe">7za.exe</ProjectItem>            
+          </Folder>          
+        </Folder>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">manifest.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Branch1.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" OpenInEditor="true">packages.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Branch1StakeFactory.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">SampleSapSampleMembrane.cs</ProjectItem>      
+    </Project>
+  </TemplateContent>
+</VSTemplate>

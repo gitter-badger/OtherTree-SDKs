@@ -1,0 +1,6 @@
+syntax = "proto3";
+package $safeprojectname$;
+option optimize_for = SPEED;
+
+message SampleSap{
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>8.0.30703</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>$guid1$</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>$safeprojectname$</RootNamespace>
+		<AssemblyName>$safeprojectname$</AssemblyName>
+		<TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
+		<FileAlignment>512</FileAlignment>
+
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+ 		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>    
+	</PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.0.0-alpha4\lib\portable-net45+netcore45+wpa81+wp8\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Wimt.OtherTree, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wimt.OtherTree.1.0.0-alpha4\lib\net45\Wimt.OtherTree.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="Branch1.cs" />
+    <Compile Include="Branch1StakeFactory.cs" />
+    <Compile Include="SampleSapSampleMembrane.cs"/>    
+		<Compile Include="Properties\AssemblyInfo.cs" />
+	</ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config"/>
+    <None Include="manifest.json"/>
+    <None Include="proto\SampleCharge.proto"/>
+    <None Include="proto\SampleSap.proto"/>
+    <None Include="proto\SampleOutputSap.proto"/>    
+    <None Include="docs\index.md"/>
+    <None Include="tools\7zip\7za.exe"/>    
+  </ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+      @Setlocal EnableDelayedExpansion
+      PUSHD "$(ProjectDir)"
+      DEL /Q .\sprig.tar.gz
+      IF EXIST (logo.*) (
+      .\tools\7zip\7za.exe a -ttar  -so archive.tar  ".\logo.*" manifest.json ".\docs\" ".\proto\" "$(TargetDir)*"  |  .\tools\7zip\7za.exe  a  -si sprig.tar.gz
+      ) ELSE (
+      .\tools\7zip\7za.exe a -ttar  -so archive.tar  manifest.json ".\docs\" ".\proto\" "$(TargetDir)*"  |  .\tools\7zip\7za.exe  a  -si sprig.tar.gz
+      )
+      POPD
+    </PostBuildEvent>
+  </PropertyGroup>
+
+ </Project>

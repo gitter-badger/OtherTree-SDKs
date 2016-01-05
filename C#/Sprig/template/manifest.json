@@ -1,0 +1,23 @@
+{
+  "description": "This sprig is a sprig. Don't judge",
+  "protocolBuffers": [
+    {
+      "fullname": "$safeprojectname$.SampleCharge",
+      "protoFile": "SampleCharge",
+      "version": "0.0.0"
+    },
+    {
+      "fullname": "$safeprojectname$.SampleOutputSap",
+      "protoFile": "SampleOutputSap",
+      "version": "0.0.0"
+    },
+    {
+      "fullname": "$safeprojectname$.SampleSap",
+      "protoFile": "SampleSap",
+      "version": "0.0.0"
+    }
+  ],
+  "assemblyName": "$projectname$",
+  "friendlyName": "$projectname$",
+  "version": "0.0.0"
+}
