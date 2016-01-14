@@ -9,8 +9,7 @@ using Wimt.OtherTree.References;
 
 namespace Wimt.OtherTree.Client
 {
-    // This project can output the Class library as a NuGet Package.
-    // To enable this option, right-click on the project and select the Properties menu item. In the Build tab select "Produce outputs on build".
+    
     public delegate void OnThud<T>(T message) where T: IMessage<T>, new();
 
     public class TypeDescription
@@ -79,7 +78,7 @@ namespace Wimt.OtherTree.Client
                 foreach (var handler in _listeners)
                 {
                     if (typeName == handler.Key.TypeName &&
-                        (!version.HasValue || handler.Key.Version.IsCompatableWith(version.Value)))
+                        (!version.HasValue || handler.Key.Version.IsCompatibleWith(version.Value)))
                     {
                         var sap = (Google.Protobuf.IMessage)(handler.Key.Type.GetConstructor(new Type[] { }).Invoke(new object[] { }));
                         sap.MergeFrom(payload);
