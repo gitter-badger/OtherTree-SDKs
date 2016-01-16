@@ -54,7 +54,7 @@ namespace Wimt.OtherTree.Client
             var qs = new Dictionary<string, string>();
             qs.Add("username", token);
             _listeners=new List<KeyValuePair<TypeDescription, Delegate>>();            
-            _hubConnection = new HubConnection(_url,token,useDefaultUrl);
+            _hubConnection = new HubConnection(_url,token,useDefaultUrl,qs);
 
             //  TODO Add proper auth        
             //  var cache= new CredentialCache();
