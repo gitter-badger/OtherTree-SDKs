@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Wimt.OtherTree.Client</id>
-    <version>2.0.0-alpha7</version>
+    <version>2.0.0-alpha8</version>
     <title>Wimt.OtherTree Sprig Client SDK</title>
     <authors>Nick Cuthbert</authors>
     <owners>WhereIsMyTransport</owners>
