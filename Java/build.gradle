@@ -4,7 +4,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath "com.android.tools.build:gradle:1.5.0"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
     }
 }
 
@@ -12,13 +13,14 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '1.0'
+    version = "1.0"
     ext {
         appName = "wimt.othertree"
     }
     repositories {
         flatDir {
             dirs "$rootProject.projectDir/libs"
+
         }
         mavenCentral()
     }
@@ -26,20 +28,88 @@ allprojects {
 
 project (":client"){
     apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "com.jfrog.bintray"
+
+    ext {
+        bintrayRepo="https://bintray.com/bintray/jcenter"
+        bintrayName = "othertree-client"
+        publishedGroupId = "com.whereismytransport.othertree"
+        libraryName = "OtherTreeClient"
+        artifact = "othertree-client"
+        libraryDescription = "A java library to assist developers in connecting and subscribing to data from an OtherTree instance"
+
+        siteUrl = "https://othertree.org"
+        gitUrl = "https://github.com/OtherTree/OtherTree-SDKs.git"
+        libraryVersion = "1.0.0"
+        developerId = "ncthbrt"
+        developerName = "Nick Cuthbert"
+        developerEmail = "nick@whereismytransport.com"
+        licenseName = "The Apache Software License, Version 2.0"
+        licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        allLicenses = ["Apache-2.0"]
+    }
+
+
     dependencies {
-        compile name:'signalr-client-sdk'
-        compile 'com.google.code.gson:gson:2.5'
-        compile 'com.google.protobuf:protobuf-java-util:3.0.0-beta-1'
+        compile name:"signalr-client-sdk"
+        compile "com.google.code.gson:gson:2.5"
+        compile "com.google.protobuf:protobuf-java-util:3.0.0-beta-1"
+    }
+
+    version = libraryVersion
+
+    publishing {
+        publications {
+            OtherTreePublication(MavenPublication) {
+                from components.java
+                groupId 'org.jfrog.gradle.sample'
+                artifactId 'gradle-project'
+                version '1.1'
+            }
+        }
+    }
+
+
+// Bintray
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    bintray {
+        user = properties.getProperty("bintray.user")
+        key = properties.getProperty("bintray.apikey")
+        publications = ['OtherTreePublication']
+        pkg {
+            repo = 'maven'
+            name =  bintrayName
+            userOrg = developerId
+            licenses = allLicenses
+            vcsUrl = gitUrl
+            publish = true
+            publicDownloadNumbers = true
+            version {
+                desc = libraryDescription
+                released  = new Date()
+                vcsTag = libraryVersion
+                gpg {
+                    sign = true //Determines whether to GPG sign the files. The default is false
+                    passphrase = properties.getProperty("bintray.gpg.password")
+                    //Optional. The passphrase for GPG signing'
+                }
+
+            }
+
+        }
     }
 }
 
 project(":android") {
-    apply plugin: 'com.android.library'
+    apply plugin: "com.android.library"
 
     configurations { natives }
     dependencies {
         compile project(":client")
-        compile project(':signalr-client-sdk-android')
+        compile project(":signalr-client-sdk-android")
     }
 }
 
