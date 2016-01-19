@@ -34,7 +34,7 @@ project (":client"){
     ext {
         bintrayRepo="https://bintray.com/bintray/jcenter"
         bintrayName = "othertree-client"
-        publishedGroupId = "com.whereismytransport.othertree"
+        publishedGroupId = "com.whereismytransport.othertree.client"
         libraryName = "OtherTreeClient"
         artifact = "othertree-client"
         libraryDescription = "A java library to assist developers in connecting and subscribing to data from an OtherTree instance"
@@ -63,9 +63,9 @@ project (":client"){
         publications {
             OtherTreePublication(MavenPublication) {
                 from components.java
-                groupId 'org.jfrog.gradle.sample'
-                artifactId 'gradle-project'
-                version '1.1'
+                groupId 'com.whereismytransport.othertree.client'
+                artifactId 'othertree-client'
+                version '1.0'
             }
         }
     }
