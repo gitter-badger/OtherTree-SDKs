@@ -17,6 +17,30 @@ android {
     }
 }
 
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'othertree-android-client'
+
+    publishedGroupId = 'com.whereismytransport.othertree.client.android'
+    libraryName = 'OtherTree Android Client'
+    artifact = 'android'
+
+    libraryDescription = 'OtherTree client library for android. This library allows one to easily connect and subscribe to OtherTree from an Android Device.'
+
+    siteUrl = 'http://othertree.org'
+    gitUrl = 'https://github.com/OtherTree/OtherTree-SDKs/issues'
+
+    libraryVersion = '1.0.0'
+    developerId = "ncthbrt"
+    developerName = "Nick Cuthbert"
+    developerEmail = "nick@whereismytransport.com"
+    licenseName = "The Apache Software License, Version 2.0"
+    licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+    allLicenses = ["Apache-2.0"]
+
+}
+
 eclipse {
     // need to specify Java source sets explicitely, SpringSource Gradle Eclipse plugin
     // ignores any nodes added in classpath.file.withXml
@@ -36,8 +60,8 @@ eclipse {
         containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'
     }
 
-    project {
-        name = "wimt-othertree-client-android"
+        project {
+        name = bintrayName
         natures 'com.android.ide.eclipse.adt.AndroidNature'
         buildCommands.clear();
         buildCommand "com.android.ide.eclipse.adt.ResourceManagerBuilder"
@@ -69,3 +93,8 @@ idea {
         }
     }
 }
+
+
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

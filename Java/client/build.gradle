@@ -1,8 +1,7 @@
 group 'wimt.othertree'
-version '1.0.0'
 
 apply plugin: 'java'
-jar.archiveName="othertree-client.jar"
+jar.archiveName="othertree-client-"+libraryVersion+".jar"
 
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
