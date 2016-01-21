@@ -34,7 +34,7 @@ def to_pascal_case(val):
     new_words=""
     for word_count in range(len(words)):
         if(len(words[word_count])>0):
-            words[word_count]=str.upper(words[word_count][0])+words[word_count][1:]
+            words[word_count]=words[word_count][0].upper()+words[word_count][1:]
             if(word_count!=0):
                 new_words+="."+words[word_count]
             else:

@@ -2,14 +2,14 @@ _author__='Nick Cuthbert <nick@whereismytransport.com>'
 
 import json
 
-class FlatType:
+class FlatType(object):
     def __init__(self,name,proto_file, version="0.0.0"):
-        self.name=str.upper(name[0])+name[1:]
+        self.name=name[0].upper()+name[1:]
         self.proto_file=proto_file
         self.version=version
 
 
-class TypeTree:
+class TypeTree(object):
     """A class describing the type tree for protocol buffer files"""
     def __init__(self,name,file, is_type=True, version="0.0.0"):
         self.name=name
@@ -41,7 +41,7 @@ class TypeTree:
 
 
 
-class Manifest:
+class Manifest(object):
     def __init__(self, proto_path, manifest_path):
             self.manifest_path=manifest_path
             self.proto_path=proto_path
