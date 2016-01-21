@@ -1,0 +1,337 @@
+Created by PLY version 3.8 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> package
+Rule 2     start -> messages
+Rule 3     package -> PACKAGE ID COLON messages
+Rule 4     package -> PACKAGE PACKAGE_ID COLON messages
+Rule 5     messages -> nested_message
+Rule 6     messages -> nested_message messages
+Rule 7     nested_message -> MESSAGE ID LEFT_BRACE message_contents
+Rule 8     message_contents -> nested_message message_contents
+Rule 9     message_contents -> field message_contents
+Rule 10    message_contents -> RIGHT_BRACE
+Rule 11    field -> ID ID FIELD_DELIMITER
+Rule 12    field -> ID MESSAGE FIELD_DELIMITER
+Rule 13    field -> ID PACKAGE FIELD_DELIMITER
+
+Terminals, with rules where they appear
+
+COLON                : 3 4
+COMMENT              : 
+FIELD_DELIMITER      : 11 12 13
+ID                   : 3 7 11 11 12 13
+LEFT_BRACE           : 7
+MESSAGE              : 7 12
+PACKAGE              : 3 4 13
+PACKAGE_ID           : 4
+RIGHT_BRACE          : 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+field                : 9
+message_contents     : 7 8 9
+messages             : 2 3 4 6
+nested_message       : 5 6 8
+package              : 1
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . package
+    (2) start -> . messages
+    (3) package -> . PACKAGE ID COLON messages
+    (4) package -> . PACKAGE PACKAGE_ID COLON messages
+    (5) messages -> . nested_message
+    (6) messages -> . nested_message messages
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+
+    PACKAGE         shift and go to state 6
+    MESSAGE         shift and go to state 1
+
+    nested_message                 shift and go to state 3
+    messages                       shift and go to state 2
+    package                        shift and go to state 5
+    start                          shift and go to state 4
+
+state 1
+
+    (7) nested_message -> MESSAGE . ID LEFT_BRACE message_contents
+
+    ID              shift and go to state 7
+
+
+state 2
+
+    (2) start -> messages .
+
+    $end            reduce using rule 2 (start -> messages .)
+
+
+state 3
+
+    (5) messages -> nested_message .
+    (6) messages -> nested_message . messages
+    (5) messages -> . nested_message
+    (6) messages -> . nested_message messages
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+
+    $end            reduce using rule 5 (messages -> nested_message .)
+    MESSAGE         shift and go to state 1
+
+    messages                       shift and go to state 8
+    nested_message                 shift and go to state 3
+
+state 4
+
+    (0) S' -> start .
+
+
+
+state 5
+
+    (1) start -> package .
+
+    $end            reduce using rule 1 (start -> package .)
+
+
+state 6
+
+    (3) package -> PACKAGE . ID COLON messages
+    (4) package -> PACKAGE . PACKAGE_ID COLON messages
+
+    ID              shift and go to state 10
+    PACKAGE_ID      shift and go to state 9
+
+
+state 7
+
+    (7) nested_message -> MESSAGE ID . LEFT_BRACE message_contents
+
+    LEFT_BRACE      shift and go to state 11
+
+
+state 8
+
+    (6) messages -> nested_message messages .
+
+    $end            reduce using rule 6 (messages -> nested_message messages .)
+
+
+state 9
+
+    (4) package -> PACKAGE PACKAGE_ID . COLON messages
+
+    COLON           shift and go to state 12
+
+
+state 10
+
+    (3) package -> PACKAGE ID . COLON messages
+
+    COLON           shift and go to state 13
+
+
+state 11
+
+    (7) nested_message -> MESSAGE ID LEFT_BRACE . message_contents
+    (8) message_contents -> . nested_message message_contents
+    (9) message_contents -> . field message_contents
+    (10) message_contents -> . RIGHT_BRACE
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+    (11) field -> . ID ID FIELD_DELIMITER
+    (12) field -> . ID MESSAGE FIELD_DELIMITER
+    (13) field -> . ID PACKAGE FIELD_DELIMITER
+
+    RIGHT_BRACE     shift and go to state 15
+    MESSAGE         shift and go to state 1
+    ID              shift and go to state 17
+
+    message_contents               shift and go to state 14
+    nested_message                 shift and go to state 16
+    field                          shift and go to state 18
+
+state 12
+
+    (4) package -> PACKAGE PACKAGE_ID COLON . messages
+    (5) messages -> . nested_message
+    (6) messages -> . nested_message messages
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+
+    MESSAGE         shift and go to state 1
+
+    messages                       shift and go to state 19
+    nested_message                 shift and go to state 3
+
+state 13
+
+    (3) package -> PACKAGE ID COLON . messages
+    (5) messages -> . nested_message
+    (6) messages -> . nested_message messages
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+
+    MESSAGE         shift and go to state 1
+
+    messages                       shift and go to state 20
+    nested_message                 shift and go to state 3
+
+state 14
+
+    (7) nested_message -> MESSAGE ID LEFT_BRACE message_contents .
+
+    RIGHT_BRACE     reduce using rule 7 (nested_message -> MESSAGE ID LEFT_BRACE message_contents .)
+    MESSAGE         reduce using rule 7 (nested_message -> MESSAGE ID LEFT_BRACE message_contents .)
+    ID              reduce using rule 7 (nested_message -> MESSAGE ID LEFT_BRACE message_contents .)
+    $end            reduce using rule 7 (nested_message -> MESSAGE ID LEFT_BRACE message_contents .)
+
+
+state 15
+
+    (10) message_contents -> RIGHT_BRACE .
+
+    MESSAGE         reduce using rule 10 (message_contents -> RIGHT_BRACE .)
+    $end            reduce using rule 10 (message_contents -> RIGHT_BRACE .)
+    RIGHT_BRACE     reduce using rule 10 (message_contents -> RIGHT_BRACE .)
+    ID              reduce using rule 10 (message_contents -> RIGHT_BRACE .)
+
+
+state 16
+
+    (8) message_contents -> nested_message . message_contents
+    (8) message_contents -> . nested_message message_contents
+    (9) message_contents -> . field message_contents
+    (10) message_contents -> . RIGHT_BRACE
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+    (11) field -> . ID ID FIELD_DELIMITER
+    (12) field -> . ID MESSAGE FIELD_DELIMITER
+    (13) field -> . ID PACKAGE FIELD_DELIMITER
+
+    RIGHT_BRACE     shift and go to state 15
+    MESSAGE         shift and go to state 1
+    ID              shift and go to state 17
+
+    message_contents               shift and go to state 21
+    nested_message                 shift and go to state 16
+    field                          shift and go to state 18
+
+state 17
+
+    (11) field -> ID . ID FIELD_DELIMITER
+    (12) field -> ID . MESSAGE FIELD_DELIMITER
+    (13) field -> ID . PACKAGE FIELD_DELIMITER
+
+    ID              shift and go to state 24
+    MESSAGE         shift and go to state 22
+    PACKAGE         shift and go to state 23
+
+
+state 18
+
+    (9) message_contents -> field . message_contents
+    (8) message_contents -> . nested_message message_contents
+    (9) message_contents -> . field message_contents
+    (10) message_contents -> . RIGHT_BRACE
+    (7) nested_message -> . MESSAGE ID LEFT_BRACE message_contents
+    (11) field -> . ID ID FIELD_DELIMITER
+    (12) field -> . ID MESSAGE FIELD_DELIMITER
+    (13) field -> . ID PACKAGE FIELD_DELIMITER
+
+    RIGHT_BRACE     shift and go to state 15
+    MESSAGE         shift and go to state 1
+    ID              shift and go to state 17
+
+    message_contents               shift and go to state 25
+    nested_message                 shift and go to state 16
+    field                          shift and go to state 18
+
+state 19
+
+    (4) package -> PACKAGE PACKAGE_ID COLON messages .
+
+    $end            reduce using rule 4 (package -> PACKAGE PACKAGE_ID COLON messages .)
+
+
+state 20
+
+    (3) package -> PACKAGE ID COLON messages .
+
+    $end            reduce using rule 3 (package -> PACKAGE ID COLON messages .)
+
+
+state 21
+
+    (8) message_contents -> nested_message message_contents .
+
+    MESSAGE         reduce using rule 8 (message_contents -> nested_message message_contents .)
+    $end            reduce using rule 8 (message_contents -> nested_message message_contents .)
+    RIGHT_BRACE     reduce using rule 8 (message_contents -> nested_message message_contents .)
+    ID              reduce using rule 8 (message_contents -> nested_message message_contents .)
+
+
+state 22
+
+    (12) field -> ID MESSAGE . FIELD_DELIMITER
+
+    FIELD_DELIMITER shift and go to state 26
+
+
+state 23
+
+    (13) field -> ID PACKAGE . FIELD_DELIMITER
+
+    FIELD_DELIMITER shift and go to state 27
+
+
+state 24
+
+    (11) field -> ID ID . FIELD_DELIMITER
+
+    FIELD_DELIMITER shift and go to state 28
+
+
+state 25
+
+    (9) message_contents -> field message_contents .
+
+    MESSAGE         reduce using rule 9 (message_contents -> field message_contents .)
+    $end            reduce using rule 9 (message_contents -> field message_contents .)
+    RIGHT_BRACE     reduce using rule 9 (message_contents -> field message_contents .)
+    ID              reduce using rule 9 (message_contents -> field message_contents .)
+
+
+state 26
+
+    (12) field -> ID MESSAGE FIELD_DELIMITER .
+
+    RIGHT_BRACE     reduce using rule 12 (field -> ID MESSAGE FIELD_DELIMITER .)
+    MESSAGE         reduce using rule 12 (field -> ID MESSAGE FIELD_DELIMITER .)
+    ID              reduce using rule 12 (field -> ID MESSAGE FIELD_DELIMITER .)
+
+
+state 27
+
+    (13) field -> ID PACKAGE FIELD_DELIMITER .
+
+    RIGHT_BRACE     reduce using rule 13 (field -> ID PACKAGE FIELD_DELIMITER .)
+    MESSAGE         reduce using rule 13 (field -> ID PACKAGE FIELD_DELIMITER .)
+    ID              reduce using rule 13 (field -> ID PACKAGE FIELD_DELIMITER .)
+
+
+state 28
+
+    (11) field -> ID ID FIELD_DELIMITER .
+
+    RIGHT_BRACE     reduce using rule 11 (field -> ID ID FIELD_DELIMITER .)
+    MESSAGE         reduce using rule 11 (field -> ID ID FIELD_DELIMITER .)
+    ID              reduce using rule 11 (field -> ID ID FIELD_DELIMITER .)
+
