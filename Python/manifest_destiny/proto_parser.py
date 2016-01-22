@@ -1,7 +1,8 @@
+
 _author__ = 'Nick Cuthbert <nick@whereismytransport.com>'
-from proto_lexer import *
-from manifest_types import *
 import ply.yacc as yacc
+from .proto_lexer import *
+from .manifest_types import *
 
 start = 'start'
 

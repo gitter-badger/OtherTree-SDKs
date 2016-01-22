@@ -1,6 +1,6 @@
-import os
 
-from proto_parser import *
+import os
+from .proto_parser import *
 
 
 def strip_proto(name):
