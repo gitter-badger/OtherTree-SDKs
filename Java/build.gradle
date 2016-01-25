@@ -44,7 +44,7 @@ project (":client"){
 
         siteUrl = "https://othertree.org"
         gitUrl = "https://github.com/OtherTree/OtherTree-SDKs.git"
-        libraryVersion = "1.0.0"
+        libraryVersion = "1.0.1"
         developerId = "ncthbrt"
         developerName = "Nick Cuthbert"
         developerEmail = "nick@whereismytransport.com"

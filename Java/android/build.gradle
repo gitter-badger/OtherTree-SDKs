@@ -31,7 +31,7 @@ ext {
     siteUrl = 'http://othertree.org'
     gitUrl = 'https://github.com/OtherTree/OtherTree-SDKs/issues'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
     developerId = "ncthbrt"
     developerName = "Nick Cuthbert"
     developerEmail = "nick@whereismytransport.com"

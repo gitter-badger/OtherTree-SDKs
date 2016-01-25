@@ -42,9 +42,9 @@ public class OtherTreeClient implements AutoCloseable {
     }
 
     public OtherTreeClient(String url, String token,boolean useDefaultUrl, Logger logger){
-        init(url,token,useDefaultUrl);
-        onThudListeners=new ArrayList<>();
         this.logger=logger;
+        onThudListeners=new ArrayList<>();
+        init(url,token,useDefaultUrl);
     }
 
     protected OtherTreeClient(){
